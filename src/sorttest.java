@@ -7,7 +7,7 @@ import java.util.List;
 
 public class sorttest {
     public void quicksort(int[] nums,int l,int r){
-        if(l == r) return;
+        if(l >= r) return;
         int left = l;
         int right = r;
         int temp = nums[l];
