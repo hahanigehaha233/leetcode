@@ -1,28 +1,27 @@
+package com.company;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class number90 {
-    List<List<Integer>> res = new ArrayList<>();
-    List<Integer> ans;
-
+    public List<List<Integer>> backtrack(List<List<Integer>> res,List<Integer> ans,int i,int[] nums){
+        res.add(new ArrayList<>(ans));
+        for(int j = i + 1;j < nums.length;++j){
+            if(j > 0 && nums[j] == nums[j - 1]){
+                continue;
+            }
+            ans.add(nums[j]);
+            res = backtrack(res,ans,j+1,nums);
+            ans.remove(ans.size() - 1);
+        }
+        return res;
+    }
     public List<List<Integer>> subsetsWithDup(int[] nums) {
         Arrays.sort(nums);
-        res.add(new ArrayList<>());
-        int start = res.size();
-        for(int i = 0;i < nums.length;++i){
-            List<List<Integer>> res_tmp = new ArrayList<>();
-            for(int j = 0;j < res.size();++j){
-                if(i > 0 && nums[i] == nums[i - 1] && j < start){
-                    continue;
-                }
-                ans = new ArrayList<>(res.get(j));
-                ans.add(nums[i]);
-                res_tmp.add(ans);
-            }
-            start = res.size();
-            res.addAll(res_tmp);
-        }
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> ans = new ArrayList<>();
+        res = backtrack(res,ans,0,nums);
         return res;
     }
 }
